@@ -1,0 +1,20 @@
+
+.ok {
+	text-align:center;
+	background-color:green;
+}
+
+.nok {
+	text-align:center;
+	background-color:red;
+}
+
+.running {
+	text-align:center;
+	background-color:yellow;
+}
+
+.na {
+	text-align:center;
+	background-color:gray;
+}
