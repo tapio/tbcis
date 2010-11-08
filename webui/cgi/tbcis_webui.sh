@@ -1,19 +1,20 @@
 #!/bin/bash
 
-echo Content-type: text/html
-echo ""
+internal_error()
+{
+	echo Content-type: text/html
+	echo ""
+	echo $@
+	exit 1
+}
+
 
 if [ ! "$TBCIS_WEBUI_ROOT" ]; then
-	echo "Error: TBCIS_WEBUI_ROOT undefined"
-	exit 1
-fi
-if [ ! "$TBCIS_TASKS_ROOT" ]; then
-	echo "Error: TBCIS_TASKS_ROOT undefined"
-	exit 1
-fi
-if [ ! "$TBCIS_RESULTS_ROOT" ]; then
-	echo "Error: TBCIS_RESULTS_ROOT undefined"
-	exit 1
+	internal_error "Error: TBCIS_WEBUI_ROOT undefined"
+elif [ ! "$TBCIS_TASKS_ROOT" ]; then
+	internal_error "Error: TBCIS_TASKS_ROOT undefined"
+elif [ ! "$TBCIS_RESULTS_ROOT" ]; then
+	internal_error "Error: TBCIS_RESULTS_ROOT undefined"
 fi
 
 cd "$TBCIS_WEBUI_ROOT"
@@ -23,17 +24,21 @@ if [ "$QUERY_STRING" ]; then
 	query_runid=`echo "$QUERY_STRING" | sed -n 's/^.*runid=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
 	query_file=`echo "$QUERY_STRING" | sed -n 's/^.*file=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
 	if [ ! "$query_task" -o ! "$query_runid" -o ! "$query_file" ]; then
-		echo "Error: Invalid query \"$QUERY_STRING\""
-		exit 1
+		internal_error "Error: Invalid query \"$QUERY_STRING\""
 	fi
 	trap="$query_task""$query_runid""$query_file"
 	if [ "`echo "$trap" | grep "/"`" -o "`echo "$trap" | grep "\.\."`" ]; then
-		echo "Error: Malformed query \"$QUERY_STRING\""
-		exit 1
+		internal_error "Error: Malformed query \"$QUERY_STRING\""
 	fi
+	echo Content-type: text/plain
+	echo ""
 	cat "$TBCIS_RESULTS_ROOT/$query_task/$query_runid/$query_file"
 	exit 0
 fi
+
+# Content header
+echo Content-type: text/html
+echo ""
 
 # Output some HTML ot start with
 cat << EOF
