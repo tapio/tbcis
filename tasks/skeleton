@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Call 'error' to signal unsuccesful task and
+# 'exit_error' to also quit immediately.
+
+
+do_config()
+{
+    echo "Configuring..."
+}
+
+
+do_build()
+{
+    echo "Building..."
+}
+
+
+do_test()
+{
+    NA
+}
+
+do_clean()
+{
+    NA
+}
+
+do_purge()
+{
+    NA
+}
