@@ -5,7 +5,7 @@
  */
 
 function tbcis_show() {
-	echo "It works";
+	echo "It works!";
 }
 
 ?>
