@@ -2,15 +2,13 @@
 
 out_file()
 {
-    cp "$1" "$OUT_DIR/$1"
+    cp "$1" "$TBCIS_OUT_DIR/$1"
 }
 
 status()
 {
-    if [ "$1" ]; then
-        status="$1"
-    fi
-    echo "$status" > $RESULT_DIR/$phase.status
+
+    echo "$1" > $TBCIS_RESULT_DIR/$TBCIS_PHASE.status
 }
 
 error()

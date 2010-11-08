@@ -4,14 +4,19 @@
 	background-color:green;
 }
 
+.running {
+	text-align:center;
+	background-color:yellow;
+}
+
 .nok {
 	text-align:center;
 	background-color:red;
 }
 
-.running {
+.err {
 	text-align:center;
-	background-color:yellow;
+	background-color:magenta;
 }
 
 .na {

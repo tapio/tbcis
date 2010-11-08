@@ -27,38 +27,43 @@ fi
 source config.sh
 source common.sh
 
-# Include the task if exists
-if [ ! -e "$TASKS_ROOT/$TASK" ]; then
+# Check the task exists
+if [ ! -e "$TBCIS_TASKS_ROOT/$TASK" ]; then
     echo "Cannot find task $TASK"
     exit 1
 fi
-source $TASKS_ROOT/$TASK
 
 # Create a directory for result files
-RESULT_DIR="$RESULTS_ROOT/$TASK/$RESULT_ID"
-mkdir -p "$RESULT_DIR"
-OUT_DIR="$RESULT_DIR/out"
-mkdir -p "$OUT_DIR"
+TBCIS_RESULT_DIR="$TBCIS_RESULTS_ROOT/$TASK/$TBCIS_RESULT_ID"
+mkdir -p "$TBCIS_RESULT_DIR"
+TBCIS_OUT_DIR="$TBCIS_RESULT_DIR/out"
+mkdir -p "$TBCIS_OUT_DIR"
 
 # Function for handling phase result
 finish_task()
 {
+	if [ $? -ne 0 ]; then
+		status ERR
+		exit 0
+	fi
+	local status=`cat $TBCIS_RESULT_DIR/$TBCIS_PHASE.status || echo N/A`
     if [ $status = "RUNNING" ]; then
         status OK
     elif [ $status = "N/A" ]; then
-        rm $RESULT_DIR/$phase.status
-        rm $RESULT_DIR/$phase.log
+        rm $TBCIS_RESULT_DIR/$TBCIS_PHASE.status
+        rm $TBCIS_RESULT_DIR/$TBCIS_PHASE.log
     elif [ $status = "NOK" ]; then
-        # We exit "succesfully" although NOK.
-        # Return value is used for script errors.
         exit 0
     fi
 }
 
 # Run phases
-for phase in $SUBTASKS; do
+for TBCIS_PHASE in $SUBTASKS; do
     status RUNNING
-    do_${phase} > "$RESULT_DIR/$phase.log" 2>&1
+    export TBCIS_PHASE
+    export TBCIS_RESULT_DIR
+    export TBCIS_OUT_DIR
+    echo "source common.sh; source $TBCIS_TASKS_ROOT/$TASK; do_${TBCIS_PHASE}" | bash > "$TBCIS_RESULT_DIR/$TBCIS_PHASE.log" 2>&1
     finish_task
 done
 
