@@ -1,3 +1,50 @@
+/* Core tags */
+
+div {
+	padding:10px 10px 10px 10px;
+}
+
+h1, h2, h3 {
+	margin:3px 3px 3px 3px;
+}
+
+small {
+	font-size:67%;
+}
+
+/* Main layout elements */
+
+#header {
+	background-color:#eee;
+	border-width:0px 0px 1px 0px;
+	border-style:solid;
+}
+
+#content {
+	background-color:#ddd;
+}
+
+#footer {
+	background-color:#eee;
+	color:#444;
+	border-width:1px 0px 0px 0px;
+	border-style:solid;
+}
+
+/* Task stuff */
+
+.task {
+	background-color:#aaa;
+	border-width:1px 0px 1px 0px;
+	border-style:dotted;
+}
+
+.runtable {
+	background-color:#a85;
+	border:3px double;
+}
+
+/* Task statuses */
 
 .ok {
 	text-align:center;

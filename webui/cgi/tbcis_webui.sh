@@ -84,10 +84,11 @@ if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 	# Iterate tasks
 	cd "$TBCIS_RESULTS_ROOT"
 	for task in *; do
+		echo "<div class=\"task\">";
 		echo "<h3>$task</h3>"
 		( cd $task
 			# Table start
-			echo "<table>"
+			echo "<table class=\"runtable\">"
 			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Test</th></tr>"
 			for i in *; do
 				( cd $i
@@ -101,6 +102,7 @@ if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 			done
 			echo "</table>"
 		)
+		echo "</div>"
 	done
 else
 	echo "<p>No tasks/runs.</p>"
