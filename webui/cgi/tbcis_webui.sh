@@ -79,27 +79,32 @@ create_cell()
 	echo "</td>"
 }
 
-# Iterate tasks
-cd "$TBCIS_RESULTS_ROOT"
-for task in *; do
-	echo "<h3>$task</h3>"
-	( cd $task
-		# Table start
-		echo "<table>"
-		echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Test</th></tr>"
-		for i in *; do
-			( cd $i
-				echo -n "<tr>"
-				echo -n "<td>$i</td>"
-				create_cell config
-				create_cell build
-				create_cell test
-				echo "</tr>"
-			)
-		done
-		echo "</table>"
-	)
-done
+# Check that there is tasks
+if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
+	# Iterate tasks
+	cd "$TBCIS_RESULTS_ROOT"
+	for task in *; do
+		echo "<h3>$task</h3>"
+		( cd $task
+			# Table start
+			echo "<table>"
+			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Test</th></tr>"
+			for i in *; do
+				( cd $i
+					echo -n "<tr>"
+					echo -n "<td>$i</td>"
+					create_cell config
+					create_cell build
+					create_cell test
+					echo "</tr>"
+				)
+			done
+			echo "</table>"
+		)
+	done
+else
+	echo "<p>No tasks/runs.</p>"
+fi
 
 # Add the rest of the HTML
 cat << EOF
