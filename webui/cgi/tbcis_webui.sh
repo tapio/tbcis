@@ -90,7 +90,7 @@ if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 			# Table start
 			echo "<table class=\"runtable\">"
 			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th></tr>"
-			for i in *; do
+			for i in `ls|tac`; do
 				( cd $i
 					echo -n "<tr>"
 					echo -n "<td>$i</td>"
