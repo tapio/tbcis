@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This is a dummy script.
+# It can be safely run for testing purposes.
+# It also provides a template for own scripts.
+
 # Call 'error' to signal unsuccesful task and
 # 'exit_error' to also quit immediately.
 

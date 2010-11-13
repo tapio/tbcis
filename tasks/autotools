@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Minimal example script for autotools-based projects.
+# Before running, change the variables below.
+
+# Call 'error' to signal unsuccesful task and
+# 'exit_error' to also quit immediately.
+
+SRC_DIR="/CHANGE/ME/TO/POINT/TO/THE/SOURCES"
+INST_DIR="/tmp/MY_TEST_PROJECT"
+
+do_config()
+{
+    cd "$SRC_DIR"
+    ./configure --prefix="$INST_DIR" || exit_error
+}
+
+
+do_build()
+{
+    cd "$SRC_DIR"
+    make || exit_error
+}
+
+do_package()
+{
+    cd "$SRC_DIR"
+    make install || exit_error
+}
+
+do_test()
+{
+   	echo -n "Build dir exists: "
+    if [ -d "$INST_DIR" ]; then
+		echo "OK"
+	else
+		echo "NOK"
+		error
+	fi
+}
+
+do_clean()
+{
+    cd "$SRC_DIR"
+    make clean || exit_error
+}
+
+do_purge()
+{
+    cd "$SRC_DIR"
+    make distclean || exit_error
+}
