@@ -2,28 +2,28 @@
 
 out_file()
 {
-    cp "$1" "$TBCIS_OUT_DIR/$1"
+	cp "$1" "$TBCIS_OUT_DIR/$1"
 }
 
 status()
 {
 
-    echo "$1" > $TBCIS_RESULT_DIR/$TBCIS_PHASE.status
+	echo "$1" > $TBCIS_RESULT_DIR/$TBCIS_PHASE.status
 }
 
 error()
 {
-    status NOK
+	status NOK
 }
 
 exit_error()
 {
-    error
-    exit 0
+	error
+	exit 0
 }
 
 NA()
 {
-    status N/A
+	status N/A
 }
 
