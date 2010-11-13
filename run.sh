@@ -59,11 +59,16 @@ finish_task()
 
 # Run phases
 for TBCIS_PHASE in $SUBTASKS; do
+    logfile="$TBCIS_RESULT_DIR/$TBCIS_PHASE.log"
+    echo "Starting phase '$TBCIS_PHASE' on `date -R`" > "$logfile"
+    echo "" >> "$logfile"
     status RUNNING
     export TBCIS_PHASE
     export TBCIS_RESULT_DIR
     export TBCIS_OUT_DIR
-    echo "source common.sh; source $TBCIS_TASKS_ROOT/$TASK; do_${TBCIS_PHASE}" | bash > "$TBCIS_RESULT_DIR/$TBCIS_PHASE.log" 2>&1
+    echo "source common.sh; source $TBCIS_TASKS_ROOT/$TASK; do_${TBCIS_PHASE}" | bash >> "$logfile" 2>&1
+    echo "" >> "$logfile"
+    echo "Ending phase '$TBCIS_PHASE' on `date -R`" >> "$logfile"
     finish_task
 done
 
