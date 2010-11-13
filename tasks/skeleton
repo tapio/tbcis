@@ -15,6 +15,10 @@ do_build()
     echo "Building..."
 }
 
+do_package()
+{
+    echo "Packaging..."
+}
 
 do_test()
 {

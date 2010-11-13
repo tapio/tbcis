@@ -89,13 +89,14 @@ if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 		( cd $task
 			# Table start
 			echo "<table class=\"runtable\">"
-			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Test</th></tr>"
+			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th></tr>"
 			for i in *; do
 				( cd $i
 					echo -n "<tr>"
 					echo -n "<td>$i</td>"
 					create_cell config
 					create_cell build
+					create_cell package
 					create_cell test
 					echo "</tr>"
 				)

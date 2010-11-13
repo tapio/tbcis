@@ -21,7 +21,7 @@ shift
 SUBTASKS="$@"
 
 if [ ! "$SUBTASKS" -o "$SUBTASKS" = "run" ]; then
-	SUBTASKS="config build test"
+	SUBTASKS="config build package test"
 fi
 
 source config.sh
