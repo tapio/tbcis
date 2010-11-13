@@ -46,10 +46,12 @@ cat << EOF
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="refresh" content="120">
 	<title>Tiny Bash Continuous Integration System WebUI</title>
 	<!--<link href="style.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
 EOF
+# Embed stylesheet for now.
 cat "$TBCIS_WEBUI_ROOT/style.css"
 cat << EOF
 	</style>
