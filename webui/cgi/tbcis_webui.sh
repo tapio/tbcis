@@ -8,13 +8,14 @@ internal_error()
 	exit 1
 }
 
-
 if [ ! "$TBCIS_WEBUI_ROOT" ]; then
 	internal_error "Error: TBCIS_WEBUI_ROOT undefined"
 elif [ ! "$TBCIS_TASKS_ROOT" ]; then
 	internal_error "Error: TBCIS_TASKS_ROOT undefined"
 elif [ ! "$TBCIS_RESULTS_ROOT" ]; then
 	internal_error "Error: TBCIS_RESULTS_ROOT undefined"
+elif [ ! "$TBCIS_WEB_RESULTS_ROOT" ]; then
+	internal_error "Error: TBCIS_WEB_RESULTS_ROOT undefined"
 fi
 
 cd "$TBCIS_WEBUI_ROOT"
@@ -79,6 +80,25 @@ create_cell()
 	echo "</td>"
 }
 
+create_dl_cell()
+{
+	echo -n "<td>"
+	local cnt=`ls out | wc -l`
+	if [ "$cnt" -eq 0 ]; then
+		echo -n "N/A"
+	elif [ "$cnt" -eq 1 ]; then
+		local f="`ls out`"
+		echo -n "<a href=\"$TBCIS_WEB_RESULTS_ROOT/$task/$i/out/$f\">"
+		echo -n "[DL]"
+		echo -n "</a>"
+	else
+		echo -n "<a href=\"$TBCIS_WEB_RESULTS_ROOT/$task/$i/out\">"
+		echo -n "[Browse]"
+		echo -n "</a>"
+	fi
+	echo "</td>"
+}
+
 # Check that there is tasks
 if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 	# Iterate tasks
@@ -89,15 +109,16 @@ if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 		( cd $task
 			# Table start
 			echo "<table class=\"runtable\">"
-			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th></tr>"
+			echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th><th>Output files</th></tr>"
 			for i in `ls|tac`; do
 				( cd $i
-					echo -n "<tr>"
-					echo -n "<td>$i</td>"
+					echo "<tr>"
+					echo "<td>$i</td>"
 					create_cell config
 					create_cell build
 					create_cell package
 					create_cell test
+					create_dl_cell
 					echo "</tr>"
 				)
 			done
