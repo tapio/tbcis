@@ -12,6 +12,10 @@ small {
 	font-size:67%;
 }
 
+small span {
+	color:#ddd;
+}
+
 /* Main layout elements */
 
 #header {

@@ -18,6 +18,8 @@ elif [ ! "$TBCIS_WEB_RESULTS_ROOT" ]; then
 	internal_error "Error: TBCIS_WEB_RESULTS_ROOT undefined"
 fi
 
+t=`date +%s%N`
+
 cd "$TBCIS_WEBUI_ROOT"
 
 if [ "$QUERY_STRING" ]; then
@@ -130,11 +132,13 @@ else
 	echo "<p>No tasks/runs.</p>"
 fi
 
+tt=`date +%s%N`
+t=$((($tt - $t)/1000000))
 # Add the rest of the HTML
 cat << EOF
 	</div>
 	<div id="footer">
-		<small>Powered by TBCIS</small>
+		<small>Powered by TBCIS<span> - Page generated in $t ms</span></small>
 	</div>
 </body>
 </html>
