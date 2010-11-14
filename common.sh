@@ -2,7 +2,7 @@
 
 out_file()
 {
-	cp "$1" "$TBCIS_OUT_DIR/$1"
+	cp "$1" "$TBCIS_OUT_DIR/"
 }
 
 status()
