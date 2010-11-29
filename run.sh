@@ -66,6 +66,7 @@ for TBCIS_PHASE in $SUBTASKS; do
 	export TBCIS_PHASE
 	export TBCIS_RESULT_DIR
 	export TBCIS_OUT_DIR
+	export LC_ALL="en_US.UTF-8"
 	echo "source common.sh; source $TBCIS_TASKS_ROOT/$TASK; do_${TBCIS_PHASE}" | bash >> "$logfile" 2>&1
 	echo "" >> "$logfile"
 	echo "Ending phase '$TBCIS_PHASE' on `date -R`" >> "$logfile"
