@@ -94,20 +94,28 @@ EOF
 			echo "<div class=\"task\">";
 			echo "<h3>$task</h3>"
 			( cd $task
+				# Check for desciption
+				if [ -f "description.txt" ]; then
+					echo "<p>"
+					cat description.txt
+					echo "</p>"
+				fi
 				# Table start
 				echo "<table class=\"runtable\">"
 				echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th><th>Output files</th></tr>"
 				for i in `ls|tac`; do
-					( cd $i
-						echo "<tr>"
-						echo "<td>$i</td>"
-						create_cell config
-						create_cell build
-						create_cell package
-						create_cell test
-						create_dl_cell
-						echo "</tr>"
-					)
+					if [ -d "$i" ]; then
+						( cd $i
+							echo "<tr>"
+							echo "<td>$i</td>"
+							create_cell config
+							create_cell build
+							create_cell package
+							create_cell test
+							create_dl_cell
+							echo "</tr>"
+						)
+					fi
 				done
 				echo "</table>"
 			)

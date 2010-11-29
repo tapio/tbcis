@@ -16,6 +16,11 @@ small span {
 	color:#ddd;
 }
 
+p {
+	margin:3px 12px 3px 12px;
+	font-size:85%;
+}
+
 /* Main layout elements */
 
 #header {
