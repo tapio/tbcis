@@ -1,5 +1,8 @@
 #!/bin/bash
 
+TBCIS_WEBUI_CACHE_FILE="`pwd`/.tbcis.cache.html"
+TBCIS_WEBUI_CACHE_TIME=5
+
 internal_error()
 {
 	echo Content-type: text/html
@@ -127,10 +130,6 @@ EOF
 }
 
 # Cache system
-
-TBCIS_WEBUI_CACHE_FILE="/tmp/.tbcis.cache"
-TBCIS_WEBUI_CACHE_TIME=5
-
 if [ ! -e "$TBCIS_WEBUI_CACHE_FILE" ]; then
 	# Create if no cache not found
 	generate_page > "$TBCIS_WEBUI_CACHE_FILE"
