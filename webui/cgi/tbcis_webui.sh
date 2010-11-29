@@ -14,30 +14,9 @@ elif [ ! "$TBCIS_TASKS_ROOT" ]; then
 	internal_error "Error: TBCIS_TASKS_ROOT undefined"
 elif [ ! "$TBCIS_RESULTS_ROOT" ]; then
 	internal_error "Error: TBCIS_RESULTS_ROOT undefined"
-elif [ ! "$TBCIS_WEB_RESULTS_ROOT" ]; then
-	internal_error "Error: TBCIS_WEB_RESULTS_ROOT undefined"
 fi
 
 t=`date +%s%N`
-
-cd "$TBCIS_WEBUI_ROOT"
-
-if [ "$QUERY_STRING" ]; then
-	query_task=`echo "$QUERY_STRING" | sed -n 's/^.*task=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
-	query_runid=`echo "$QUERY_STRING" | sed -n 's/^.*runid=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
-	query_file=`echo "$QUERY_STRING" | sed -n 's/^.*file=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
-	if [ ! "$query_task" -o ! "$query_runid" -o ! "$query_file" ]; then
-		internal_error "Error: Invalid query \"$QUERY_STRING\""
-	fi
-	trap="$query_task""$query_runid""$query_file"
-	if [ "`echo "$trap" | grep "/"`" -o "`echo "$trap" | grep "\.\."`" ]; then
-		internal_error "Error: Malformed query \"$QUERY_STRING\""
-	fi
-	echo Content-type: text/plain
-	echo ""
-	cat "$TBCIS_RESULTS_ROOT/$query_task/$query_runid/$query_file"
-	exit 0
-fi
 
 # Content header
 echo Content-type: text/html
@@ -75,7 +54,7 @@ create_cell()
 	else
 		class=`echo "$status" | tr "[:upper:]" "[:lower:]"`
 		echo -n "<td class=\"$class\">"
-		echo -n "<a href=\"?task=$task&runid=$i&file=$1.log\">"
+		echo -n "<a href=\"$TBCIS_RESULTS_ROOT/$task/$i/$1.log\">"
 		echo -n "$status"
 		echo -n "</a>"
 	fi
@@ -90,11 +69,11 @@ create_dl_cell()
 		echo -n "N/A"
 	elif [ "$cnt" -eq 1 ]; then
 		local f="`ls out`"
-		echo -n "<a href=\"$TBCIS_WEB_RESULTS_ROOT/$task/$i/out/$f\">"
+		echo -n "<a href=\"$TBCIS_RESULTS_ROOT/$task/$i/out/$f\">"
 		echo -n "[DL]"
 		echo -n "</a>"
 	else
-		echo -n "<a href=\"$TBCIS_WEB_RESULTS_ROOT/$task/$i/out\">"
+		echo -n "<a href=\"$TBCIS_RESULTS_ROOT/$task/$i/out\">"
 		echo -n "[Browse]"
 		echo -n "</a>"
 	fi
