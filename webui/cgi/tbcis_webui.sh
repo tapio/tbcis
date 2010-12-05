@@ -86,6 +86,10 @@ EOF
 <div id="content">
 EOF
 
+	if [ -f "$TBCIS_WEBUI_MOTD_FILE" ]; then
+		cat "$TBCIS_WEBUI_MOTD_FILE"
+	fi
+
 	# Check that there is tasks
 	if [ -d "$TBCIS_RESULTS_ROOT" -a "`ls $TBCIS_RESULTS_ROOT`" ]; then
 		# Iterate tasks
