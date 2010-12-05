@@ -21,7 +21,7 @@ shift
 SUBTASKS="$@"
 
 if [ ! "$SUBTASKS" -o "$SUBTASKS" = "run" ]; then
-	SUBTASKS="config build package test"
+	SUBTASKS="changes config build package test"
 fi
 
 source config.sh
@@ -52,6 +52,8 @@ finish_task()
 	elif [ $status = "N/A" ]; then
 		rm $TBCIS_RESULT_DIR/$TBCIS_PHASE.status
 		rm $TBCIS_RESULT_DIR/$TBCIS_PHASE.log
+	elif [ $status = "NOCHG" ]; then
+		exit 0
 	elif [ $status = "NOK" ]; then
 		exit 0
 	fi

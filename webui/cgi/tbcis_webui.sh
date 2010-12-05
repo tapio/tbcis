@@ -106,12 +106,13 @@ EOF
 				fi
 				# Table start
 				echo "<table class=\"runtable\">"
-				echo "<tr><th>Run id</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th><th>Output files</th></tr>"
+				echo "<tr><th>Run id</th><th>Changes</th><th>Config</th><th>Build</th><th>Package</th><th>Test</th><th>Output files</th></tr>"
 				for i in `ls|tac`; do
 					if [ -d "$i" ]; then
 						( cd $i
 							echo "<tr>"
 							echo "<td>$i</td>"
+							create_cell changes
 							create_cell config
 							create_cell build
 							create_cell package
