@@ -8,3 +8,4 @@ fi
 markdown ../Readme.markdown > Readme.html
 markdown ../webui/php/Readme.markdown > Readme-WebUI-PHP.html
 markdown ../webui/cgi/Readme.markdown > Readme-WebUI-CGI.html
+markdown ../webui/python/Readme.markdown > Readme-WebUI-Python.html

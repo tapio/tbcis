@@ -3,6 +3,6 @@ TBCIS PHP WebUI
 
 **Incomplete & defunct!**
 
-This won't work. Maybe it will some day in the distant future. Use the CGI version instead.
+This won't work. Probably never will. Use the Python version instead.
 
 

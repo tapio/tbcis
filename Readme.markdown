@@ -9,7 +9,7 @@ The idea is to provide an easy-to-use framework for running automated tasks, usu
 
 Instructions
 ------------
-Pending.
+Complete instructions pending. See doc-directory for available guides.
 
 License
 -------

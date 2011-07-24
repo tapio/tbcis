@@ -5,6 +5,8 @@ Introduction
 ------------
 This is a CGI script that generates a simple real-time phase-by-phase view of all the available tasks and runs.
 
+Note: This WebUI implementation is deprecated - use the Python version instead.
+
 
 Installation
 ------------
