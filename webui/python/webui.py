@@ -74,6 +74,9 @@ print '''
 # Page header text
 print read_file(TBCIS_WEBUI_MOTD_FILE)
 
+# Additional info
+print '<p><em>Only runs with changes are displayed.</em></p>'
+
 # Check that there is tasks
 if os.path.exists(TBCIS_RESULTS_ROOT) and os.listdir(TBCIS_RESULTS_ROOT) != []: 
 	# Iterate tasks
@@ -97,15 +100,17 @@ if os.path.exists(TBCIS_RESULTS_ROOT) and os.listdir(TBCIS_RESULTS_ROOT) != []:
 		for i in runs:
 			if os.path.isdir(i):
 				os.chdir(i)
-				print '<tr>'
-				print '<td>%s</td>' % i
-				print create_cell('changes')
-				print create_cell('config')
-				print create_cell('build')
-				print create_cell('package')
-				print create_cell('test')
-				print create_dl_cell()
-				print '</tr>'
+				status = read_file('changes.status').rstrip('\n')
+				if status != 'NOCHG':
+					print '<tr>'
+					print '<td>%s</td>' % i
+					print create_cell('changes')
+					print create_cell('config')
+					print create_cell('build')
+					print create_cell('package')
+					print create_cell('test')
+					print create_dl_cell()
+					print '</tr>'
 				os.chdir('..')
 
 		print '</table>'
