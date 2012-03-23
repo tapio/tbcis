@@ -82,9 +82,24 @@ if os.path.exists(TBCIS_RESULTS_ROOT) and os.listdir(TBCIS_RESULTS_ROOT) != []:
 	# Iterate tasks
 	os.chdir(TBCIS_RESULTS_ROOT)
 	tasks = sorted(os.listdir('.'))
+
+	# Summary table start
+	print '<div class="task">'
+	print '<h3>Summary</h3>'
+	print '<table class="runtable">'
+	print '<tr><th>Task id</th><th>Latest status</th></tr>'
+
+	for task in tasks:
+		print '<tr>'
+		print '<td><a href="#'+task+'">'+task+'</a></td>'
+		print '<td class="na">N/A</td>'
+		print '</tr>'
+	print '</table>'
+	print '</div>'
+
 	for task in tasks:
 		print '<div class="task">'
-		print '<h3>%s</h3>' % task
+		print '<a name="'+task+'"><h3>'+task+'</h3></a>'
 		os.chdir(task)
 
 		# Check for desciption
